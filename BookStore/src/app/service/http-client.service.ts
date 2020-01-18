@@ -15,4 +15,8 @@ export class HttpClientService {
     return this.httpClient.get<User[]>('http://localhost:8080/users/get');
   }
 
+  addUser(newUser: User) {
+    return this.httpClient.post<User>('http://localhost:8080/users/add', newUser);
+  }
+
 }

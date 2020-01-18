@@ -11,6 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class UsersComponent implements OnInit {
 
   users: Array<User>;
+  selectedUser: User;
+  action: string;
 
   constructor(
     private httpClientService: HttpClientService,
@@ -19,13 +21,28 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.refreshData();
+  }
+
+  refreshData() {
     this.httpClientService.getUsers().subscribe(
       response => this.handleSuccessfulResponse(response),
+    );
+
+    this.activatedRouter.queryParams.subscribe(
+      (params) => {
+        this.action = params.action;
+      }
     );
   }
 
   handleSuccessfulResponse(response) {
     this.users = response;
+  }
+
+  addUser() {
+    this.selectedUser = new User();
+    this.router.navigate(['admin', 'users'], { queryParams: {action: 'add'}});
   }
 
 }

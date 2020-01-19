@@ -3,6 +3,7 @@ package com.guideJavainuse.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +34,11 @@ public class UserController {
 		userRepository.save(user);
 	}
 	
+	// No me gusta como se trata la excepcion, mirar como lo tratan en otros proyectos
 	@DeleteMapping(path = {"/{id}"})
-	public User deleteUser(@PathVariable("id") long id) {
-		User user = userRepository.getOne(id);
+	public User deleteUser(@PathVariable("id") long id) throws NotFoundException {
+		//User user = userRepository.getOne(id);
+		User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
 		userRepository.deleteById(id);
 		return user;
 	}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/model/User';
 import { HttpClientService } from 'src/app/service/http-client.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,9 @@ export class ViewuserComponent implements OnInit {
   @Input()
   user: User;
 
+  @Output()
+  userDeletedEvent = new EventEmitter();
+
   constructor(
     private httpClientService: HttpClientService,
     private router: Router
@@ -24,6 +27,7 @@ export class ViewuserComponent implements OnInit {
   deleteUser() {
     this.httpClientService.deleteUser(this.user.id).subscribe(
       (user) => {
+        this.userDeletedEvent.emit();
         this.router.navigate(['admin', 'users']);
       }
     );

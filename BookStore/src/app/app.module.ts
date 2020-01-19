@@ -8,13 +8,15 @@ import { MenuComponent } from './menu/menu.component';
 import { UsersComponent } from './admin/users/users.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdduserComponent } from './admin/users/adduser/adduser.component';
+import { ViewuserComponent } from './admin/users/viewuser/viewuser.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     UsersComponent,
-    AdduserComponent
+    AdduserComponent,
+    ViewuserComponent
   ],
   imports: [
     BrowserModule,

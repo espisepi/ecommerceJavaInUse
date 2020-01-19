@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../model/User';
+import { Book } from '../model/Book';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpClientService {
+
+  //static rootpath = 'http://localhost:8080';
 
   constructor(
     private httpClient: HttpClient
@@ -21,6 +24,10 @@ export class HttpClientService {
 
   deleteUser(id) {
     return this.httpClient.delete<User>('http://localhost:8080/users/' + id);
+  }
+
+  getBooks() {
+    return this.httpClient.get<Book[]>('http://localhost:8080/books/get');
   }
 
 }
